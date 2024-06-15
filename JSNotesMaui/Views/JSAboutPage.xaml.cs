@@ -1,4 +1,4 @@
-namespace JSNotesMaui;
+namespace JSNotesMaui.Views;
 
 public partial class JSAboutPage : ContentPage
 {
@@ -10,9 +10,14 @@ public partial class JSAboutPage : ContentPage
     private async void LearnMore_Clicked(object sender, EventArgs e)
     {
         //creacion del boton LeanMoreClicked
-        await Launcher.Default.OpenAsync("https://aka.ms/maui");
-    
-    
+        if (BindingContext is Models.JSAbout about)
+        {
+            await Launcher.Default.OpenAsync(about.MoreInfoUrl);
+
+
+        }
+
+
     }
 
 }
