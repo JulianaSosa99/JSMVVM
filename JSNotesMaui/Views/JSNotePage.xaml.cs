@@ -1,5 +1,5 @@
 namespace JSNotesMaui.Views;
-
+[QueryProperty(nameof(ItemId), nameof(ItemId))]
 
 public partial class JSNotePage : ContentPage
 
@@ -16,16 +16,26 @@ public partial class JSNotePage : ContentPage
         LoadNote(Path.Combine(appDataPath, randomFileName));
     }
 
-    private void SaveButton_Clicked(object sender, EventArgs e)
+    private async void SaveButton_Clicked(object sender, EventArgs e)
     {
-        File.WriteAllText(_fileName, TextEditor.Text);
+        if (BindingContext is Models.JSNote note)
+            File.WriteAllText(note.Filename, TextEditor.Text);
+
+        await Shell.Current.GoToAsync("..");
+
     }
 
-    private void DeleteButton_Clicked(object sender, EventArgs e)
+    private async void DeleteButton_Clicked(object sender, EventArgs e)
     {
-        if(File.Exists(_fileName)) 
-            File.Delete(_fileName);
-        TextEditor.Text = string.Empty;
+        if (BindingContext is Models.JSNote note)
+        {
+
+
+            if (File.Exists(note.Filename))
+                File.Delete(note.Filename);
+        }
+        await Shell.Current.GoToAsync("..");
+     
     }
 
 
@@ -42,5 +52,9 @@ public partial class JSNotePage : ContentPage
         }
 
         BindingContext = noteModel;
+    }
+    public string ItemId
+    {
+        set { LoadNote(value); }
     }
 }

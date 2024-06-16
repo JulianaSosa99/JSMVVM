@@ -4,7 +4,12 @@
     {
         public AppShell()
         {
+
             InitializeComponent();
+
+
+            Routing.RegisterRoute(nameof(Views.JSNotePage), typeof(Views.JSNotePage));
+
         }
     }
 }
