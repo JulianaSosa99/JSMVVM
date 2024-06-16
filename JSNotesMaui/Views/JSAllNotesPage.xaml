@@ -2,19 +2,26 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="JSNotesMaui.Views.JSAllNotesPage"
+             xmlns:viewModels="clr-namespace:JSNotesMaui.ViewModels"
+             NavigatedTo="ContentPage_NavigatedTo"
              Title="JSAllNotesPage">
-
+    
+    
+    <ContentPage.BindingContext>
+        <viewModels:JSNotesViewModel />
+    </ContentPage.BindingContext>
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add" Clicked="Add_Clicked" IconImageSource="{FontImage Glyph='+', Color=Black, Size=22}" />
+        <ToolbarItem Text="Add" Command="{Binding NewCommand}" IconImageSource="{FontImage Glyph='+', Color=Black, Size=22}" />
     </ContentPage.ToolbarItems>
 
     <!-- Display notes in a list -->
     <CollectionView x:Name="notesCollection"
-                        ItemsSource="{Binding Notes}"
+                        ItemsSource="{Binding JSAllNotes}"
                         Margin="20"
                         SelectionMode="Single"
-                        SelectionChanged="notesCollection_SelectionChanged">
+                      SelectionChangedCommand="{Binding SelectNoteCommand}"
+                    SelectionChangedCommandParameter="{Binding Source={RelativeSource Self}, Path=SelectedItem}">
 
         <!-- Designate how the collection of items are laid out -->
         <CollectionView.ItemsLayout>
@@ -25,8 +32,8 @@
         <CollectionView.ItemTemplate>
             <DataTemplate>
                 <StackLayout>
-                    <Label Text="{Binding Text}" FontSize="22"/>
-                    <Label Text="{Binding Date}" FontSize="14" TextColor="Silver"/>
+                    <Label Text="{Binding JSText}" FontSize="22"/>
+                    <Label Text="{Binding JSDate}" FontSize="14" TextColor="Silver"/>
                 </StackLayout>
             </DataTemplate>
         </CollectionView.ItemTemplate>
