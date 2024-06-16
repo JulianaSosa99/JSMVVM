@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:models="clr-namespace:JSNotesMaui.Models"
+             xmlns:viewModels="clr-namespace:JSNotesMaui.ViewModels"
              x:Class="JSNotesMaui.Views.JSAboutPage">
     <ContentPage.BindingContext>
-        <models:JSAbout />
+        <viewModels:JSAboutViewModel />
     </ContentPage.BindingContext>
     <VerticalStackLayout Spacing="10" Margin="10">
         <HorizontalStackLayout Spacing="10">
@@ -16,7 +16,7 @@
         </HorizontalStackLayout>
 
         <Label Text="{Binding Message}" />
-        <Button Text="Learn more..." Clicked="LearnMore_Clicked" />
+        <Button Text="JS Amprende más..." Command="{Binding ShowMoreInfoCommand}" />
     </VerticalStackLayout>
 
 </ContentPage>
